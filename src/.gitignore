@@ -1,0 +1,114 @@
+# Production-grade .gitignore for a Node + TypeScript + Prisma project
+# Keep lockfiles committed (package-lock.json / yarn.lock / pnpm-lock.yaml).
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.parcel-cache/
+.cache/
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+/.sass-cache
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Environment variables (keep example/sample files)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Prisma local DB
+prisma/dev.db
+*.sqlite
+
+# Database files
+*.db
+*.sqlite3
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# Redis/Postgres local volumes (local-only paths sometimes created)
+redis-data/
+postgres-data/
+
+# Secrets, keys, certs
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+
+# JetBrains
+*.iml
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Vim / swap / temporary
+*~
+*.swp
+*.swo
+
+# GitHub Codespaces
+.devcontainer/
+
+# Test reports
+test-results/
+reports/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Yarn v2/v3 (if used)
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# Misc
+thumbs.db
+desktop.ini
