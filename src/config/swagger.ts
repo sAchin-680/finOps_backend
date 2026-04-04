@@ -1,9 +1,9 @@
-import { env } from './env'
+import { env } from './env';
 
 const serverUrl =
   env.NODE_ENV === 'production'
-    ? 'https://finopsbackend-production.up.railway.app'
-    : `http://localhost:${env.PORT}`
+    ? 'https://finops-backend-rjlc.onrender.com'
+    : `http://localhost:${env.PORT}`;
 
 export const swaggerSpec = {
   openapi: '3.0.0',
@@ -17,7 +17,10 @@ export const swaggerSpec = {
     },
   },
   servers: [
-    { url: serverUrl, description: env.NODE_ENV === 'production' ? 'Production' : 'Local dev' },
+    {
+      url: serverUrl,
+      description: env.NODE_ENV === 'production' ? 'Production' : 'Local dev',
+    },
   ],
 
   // ── Reusable components
@@ -47,8 +50,16 @@ export const swaggerSpec = {
         properties: {
           _id: { type: 'string', example: '64a1f1f1f1f1f1f1f1f1f1f1' },
           username: { type: 'string', example: 'alice_analyst' },
-          email: { type: 'string', format: 'email', example: 'alice@example.com' },
-          role: { type: 'string', enum: ['viewer', 'analyst', 'admin'], example: 'analyst' },
+          email: {
+            type: 'string',
+            format: 'email',
+            example: 'alice@example.com',
+          },
+          role: {
+            type: 'string',
+            enum: ['viewer', 'analyst', 'admin'],
+            example: 'analyst',
+          },
           isActive: { type: 'boolean', example: true },
           createdAt: { type: 'string', format: 'date-time' },
           updatedAt: { type: 'string', format: 'date-time' },
@@ -61,10 +72,22 @@ export const swaggerSpec = {
         properties: {
           _id: { type: 'string', example: '64b2e2e2e2e2e2e2e2e2e2e2' },
           amount: { type: 'number', format: 'float', example: 2500.0 },
-          type: { type: 'string', enum: ['income', 'expense'], example: 'income' },
+          type: {
+            type: 'string',
+            enum: ['income', 'expense'],
+            example: 'income',
+          },
           category: { type: 'string', example: 'Salary' },
-          date: { type: 'string', format: 'date-time', example: '2024-01-15T00:00:00.000Z' },
-          notes: { type: 'string', nullable: true, example: 'Monthly salary payment' },
+          date: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-01-15T00:00:00.000Z',
+          },
+          notes: {
+            type: 'string',
+            nullable: true,
+            example: 'Monthly salary payment',
+          },
           createdBy: {
             type: 'object',
             properties: {
@@ -104,7 +127,10 @@ export const swaggerSpec = {
           totalExpense: { type: 'number', example: 4500.0 },
           netBalance: { type: 'number', example: 10500.0 },
           transactionCount: { type: 'integer', example: 42 },
-          categoryTotals: { type: 'array', items: { $ref: '#/components/schemas/CategoryTotal' } },
+          categoryTotals: {
+            type: 'array',
+            items: { $ref: '#/components/schemas/CategoryTotal' },
+          },
           recentTransactions: {
             type: 'array',
             items: { $ref: '#/components/schemas/Transaction' },
@@ -133,25 +159,33 @@ export const swaggerSpec = {
       Unauthorized: {
         description: 'Missing or invalid JWT token',
         content: {
-          'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } },
+          'application/json': {
+            schema: { $ref: '#/components/schemas/ErrorResponse' },
+          },
         },
       },
       Forbidden: {
         description: 'Authenticated but insufficient role',
         content: {
-          'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } },
+          'application/json': {
+            schema: { $ref: '#/components/schemas/ErrorResponse' },
+          },
         },
       },
       NotFound: {
         description: 'Resource not found',
         content: {
-          'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } },
+          'application/json': {
+            schema: { $ref: '#/components/schemas/ErrorResponse' },
+          },
         },
       },
       BadRequest: {
         description: 'Validation error or invalid input',
         content: {
-          'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } },
+          'application/json': {
+            schema: { $ref: '#/components/schemas/ErrorResponse' },
+          },
         },
       },
     },
@@ -193,7 +227,10 @@ export const swaggerSpec = {
                   type: 'object',
                   properties: {
                     success: { type: 'boolean', example: true },
-                    message: { type: 'string', example: 'FinOps Backend API is running' },
+                    message: {
+                      type: 'string',
+                      example: 'FinOps Backend API is running',
+                    },
                   },
                 },
               },
@@ -249,8 +286,16 @@ export const swaggerSpec = {
                     pattern: '^[a-zA-Z0-9_]+$',
                     example: 'alice_doe',
                   },
-                  email: { type: 'string', format: 'email', example: 'alice@example.com' },
-                  password: { type: 'string', minLength: 8, example: 'SecurePass1' },
+                  email: {
+                    type: 'string',
+                    format: 'email',
+                    example: 'alice@example.com',
+                  },
+                  password: {
+                    type: 'string',
+                    minLength: 8,
+                    example: 'SecurePass1',
+                  },
                 },
               },
             },
@@ -271,7 +316,8 @@ export const swaggerSpec = {
                         user: { $ref: '#/components/schemas/UserPublic' },
                         token: { type: 'string', example: 'eyJhbGci...' },
                       },
-                      description: 'auth register/login wraps user+token together',
+                      description:
+                        'auth register/login wraps user+token together',
                     },
                   },
                 },
@@ -279,7 +325,14 @@ export const swaggerSpec = {
             },
           },
           '400': { $ref: '#/components/responses/BadRequest' },
-          '409': { description: 'Username or email already taken', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+          '409': {
+            description: 'Username or email already taken',
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ErrorResponse' },
+              },
+            },
+          },
         },
       },
     },
@@ -326,8 +379,22 @@ export const swaggerSpec = {
             },
           },
           '400': { $ref: '#/components/responses/BadRequest' },
-          '401': { description: 'Invalid username or password', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
-          '403': { description: 'Account is deactivated', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+          '401': {
+            description: 'Invalid username or password',
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ErrorResponse' },
+              },
+            },
+          },
+          '403': {
+            description: 'Account is deactivated',
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ErrorResponse' },
+              },
+            },
+          },
         },
       },
     },
@@ -336,8 +403,9 @@ export const swaggerSpec = {
     '/api/users/me': {
       get: {
         tags: ['Users'],
-        summary: "Get own profile",
-        description: 'Returns the authenticated user\'s profile. Available to all roles.',
+        summary: 'Get own profile',
+        description:
+          "Returns the authenticated user's profile. Available to all roles.",
         responses: {
           '200': {
             description: 'Own user profile',
@@ -381,7 +449,12 @@ export const swaggerSpec = {
                         {
                           type: 'object',
                           properties: {
-                            users: { type: 'array', items: { $ref: '#/components/schemas/UserPublic' } },
+                            users: {
+                              type: 'array',
+                              items: {
+                                $ref: '#/components/schemas/UserPublic',
+                              },
+                            },
                           },
                         },
                       ],
@@ -406,10 +479,28 @@ export const swaggerSpec = {
                 type: 'object',
                 required: ['username', 'email', 'password', 'role'],
                 properties: {
-                  username: { type: 'string', minLength: 3, maxLength: 50, pattern: '^[a-zA-Z0-9_]+$', example: 'bob_analyst' },
-                  email: { type: 'string', format: 'email', example: 'bob@example.com' },
-                  password: { type: 'string', minLength: 8, example: 'SecurePass1' },
-                  role: { type: 'string', enum: ['viewer', 'analyst', 'admin'], example: 'analyst' },
+                  username: {
+                    type: 'string',
+                    minLength: 3,
+                    maxLength: 50,
+                    pattern: '^[a-zA-Z0-9_]+$',
+                    example: 'bob_analyst',
+                  },
+                  email: {
+                    type: 'string',
+                    format: 'email',
+                    example: 'bob@example.com',
+                  },
+                  password: {
+                    type: 'string',
+                    minLength: 8,
+                    example: 'SecurePass1',
+                  },
+                  role: {
+                    type: 'string',
+                    enum: ['viewer', 'analyst', 'admin'],
+                    example: 'analyst',
+                  },
                 },
               },
             },
@@ -433,7 +524,14 @@ export const swaggerSpec = {
           '400': { $ref: '#/components/responses/BadRequest' },
           '401': { $ref: '#/components/responses/Unauthorized' },
           '403': { $ref: '#/components/responses/Forbidden' },
-          '409': { description: 'Username or email already taken', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+          '409': {
+            description: 'Username or email already taken',
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ErrorResponse' },
+              },
+            },
+          },
         },
       },
     },
@@ -442,7 +540,15 @@ export const swaggerSpec = {
       get: {
         tags: ['Users'],
         summary: 'Get user by ID (admin only)',
-        parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' }, example: '64a1f1f1f1f1f1f1f1f1f1f1' }],
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: { type: 'string' },
+            example: '64a1f1f1f1f1f1f1f1f1f1f1',
+          },
+        ],
         responses: {
           '200': {
             description: 'User details',
@@ -467,8 +573,16 @@ export const swaggerSpec = {
       patch: {
         tags: ['Users'],
         summary: 'Update a user (admin only)',
-        description: 'Update email, role, or active status. At least one field required. Admin cannot deactivate their own account.',
-        parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+        description:
+          'Update email, role, or active status. At least one field required. Admin cannot deactivate their own account.',
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: { type: 'string' },
+          },
+        ],
         requestBody: {
           required: true,
           content: {
@@ -477,8 +591,15 @@ export const swaggerSpec = {
                 type: 'object',
                 minProperties: 1,
                 properties: {
-                  email: { type: 'string', format: 'email', example: 'updated@example.com' },
-                  role: { type: 'string', enum: ['viewer', 'analyst', 'admin'] },
+                  email: {
+                    type: 'string',
+                    format: 'email',
+                    example: 'updated@example.com',
+                  },
+                  role: {
+                    type: 'string',
+                    enum: ['viewer', 'analyst', 'admin'],
+                  },
                   isActive: { type: 'boolean', example: false },
                 },
               },
@@ -504,16 +625,44 @@ export const swaggerSpec = {
           '401': { $ref: '#/components/responses/Unauthorized' },
           '403': { $ref: '#/components/responses/Forbidden' },
           '404': { $ref: '#/components/responses/NotFound' },
-          '409': { description: 'Email already in use', content: { 'application/json': { schema: { $ref: '#/components/schemas/ErrorResponse' } } } },
+          '409': {
+            description: 'Email already in use',
+            content: {
+              'application/json': {
+                schema: { $ref: '#/components/schemas/ErrorResponse' },
+              },
+            },
+          },
         },
       },
       delete: {
         tags: ['Users'],
         summary: 'Delete a user (admin only)',
-        description: 'Permanently removes a user. Admin cannot delete their own account.',
-        parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+        description:
+          'Permanently removes a user. Admin cannot delete their own account.',
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: { type: 'string' },
+          },
+        ],
         responses: {
-          '200': { description: 'User deleted', content: { 'application/json': { schema: { type: 'object', properties: { success: { type: 'boolean', example: true }, message: { type: 'string' } } } } } },
+          '200': {
+            description: 'User deleted',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean', example: true },
+                    message: { type: 'string' },
+                  },
+                },
+              },
+            },
+          },
           '400': { $ref: '#/components/responses/BadRequest' },
           '401': { $ref: '#/components/responses/Unauthorized' },
           '403': { $ref: '#/components/responses/Forbidden' },
@@ -527,14 +676,37 @@ export const swaggerSpec = {
       get: {
         tags: ['Transactions'],
         summary: 'List transactions (all roles)',
-        description: 'Returns paginated, filterable transactions. Soft-deleted records are excluded.',
+        description:
+          'Returns paginated, filterable transactions. Soft-deleted records are excluded.',
         parameters: [
           { $ref: '#/components/parameters/PageParam' },
           { $ref: '#/components/parameters/LimitParam' },
-          { in: 'query', name: 'type', schema: { type: 'string', enum: ['income', 'expense'] }, description: 'Filter by transaction type' },
-          { in: 'query', name: 'category', schema: { type: 'string' }, description: 'Partial, case-insensitive category filter' },
-          { in: 'query', name: 'dateFrom', schema: { type: 'string', format: 'date' }, example: '2024-01-01', description: 'Start date (inclusive)' },
-          { in: 'query', name: 'dateTo', schema: { type: 'string', format: 'date' }, example: '2024-12-31', description: 'End date (inclusive)' },
+          {
+            in: 'query',
+            name: 'type',
+            schema: { type: 'string', enum: ['income', 'expense'] },
+            description: 'Filter by transaction type',
+          },
+          {
+            in: 'query',
+            name: 'category',
+            schema: { type: 'string' },
+            description: 'Partial, case-insensitive category filter',
+          },
+          {
+            in: 'query',
+            name: 'dateFrom',
+            schema: { type: 'string', format: 'date' },
+            example: '2024-01-01',
+            description: 'Start date (inclusive)',
+          },
+          {
+            in: 'query',
+            name: 'dateTo',
+            schema: { type: 'string', format: 'date' },
+            example: '2024-12-31',
+            description: 'End date (inclusive)',
+          },
         ],
         responses: {
           '200': {
@@ -551,7 +723,12 @@ export const swaggerSpec = {
                         {
                           type: 'object',
                           properties: {
-                            transactions: { type: 'array', items: { $ref: '#/components/schemas/Transaction' } },
+                            transactions: {
+                              type: 'array',
+                              items: {
+                                $ref: '#/components/schemas/Transaction',
+                              },
+                            },
                           },
                         },
                       ],
@@ -575,11 +752,34 @@ export const swaggerSpec = {
                 type: 'object',
                 required: ['amount', 'type', 'category', 'date'],
                 properties: {
-                  amount: { type: 'number', minimum: 0.01, multipleOf: 0.01, example: 2500.0 },
-                  type: { type: 'string', enum: ['income', 'expense'], example: 'income' },
-                  category: { type: 'string', minLength: 1, maxLength: 100, example: 'Salary' },
-                  date: { type: 'string', format: 'date', example: '2024-01-15' },
-                  notes: { type: 'string', maxLength: 500, nullable: true, example: 'Monthly salary' },
+                  amount: {
+                    type: 'number',
+                    minimum: 0.01,
+                    multipleOf: 0.01,
+                    example: 2500.0,
+                  },
+                  type: {
+                    type: 'string',
+                    enum: ['income', 'expense'],
+                    example: 'income',
+                  },
+                  category: {
+                    type: 'string',
+                    minLength: 1,
+                    maxLength: 100,
+                    example: 'Salary',
+                  },
+                  date: {
+                    type: 'string',
+                    format: 'date',
+                    example: '2024-01-15',
+                  },
+                  notes: {
+                    type: 'string',
+                    maxLength: 500,
+                    nullable: true,
+                    example: 'Monthly salary',
+                  },
                 },
               },
             },
@@ -611,7 +811,14 @@ export const swaggerSpec = {
       get: {
         tags: ['Transactions'],
         summary: 'Get transaction by ID (all roles)',
-        parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: { type: 'string' },
+          },
+        ],
         responses: {
           '200': {
             description: 'Transaction details',
@@ -636,7 +843,14 @@ export const swaggerSpec = {
         tags: ['Transactions'],
         summary: 'Update a transaction (analyst, admin)',
         description: 'Partial update. At least one field required.',
-        parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: { type: 'string' },
+          },
+        ],
         requestBody: {
           required: true,
           content: {
@@ -645,7 +859,12 @@ export const swaggerSpec = {
                 type: 'object',
                 minProperties: 1,
                 properties: {
-                  amount: { type: 'number', minimum: 0.01, multipleOf: 0.01, example: 3000.0 },
+                  amount: {
+                    type: 'number',
+                    minimum: 0.01,
+                    multipleOf: 0.01,
+                    example: 3000.0,
+                  },
                   type: { type: 'string', enum: ['income', 'expense'] },
                   category: { type: 'string', minLength: 1, maxLength: 100 },
                   date: { type: 'string', format: 'date' },
@@ -679,10 +898,31 @@ export const swaggerSpec = {
       delete: {
         tags: ['Transactions'],
         summary: 'Soft-delete a transaction (admin only)',
-        description: 'Sets `isDeleted: true`. The record is preserved for audit but no longer returned in list/get endpoints.',
-        parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'string' } }],
+        description:
+          'Sets `isDeleted: true`. The record is preserved for audit but no longer returned in list/get endpoints.',
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: { type: 'string' },
+          },
+        ],
         responses: {
-          '200': { description: 'Transaction soft-deleted', content: { 'application/json': { schema: { type: 'object', properties: { success: { type: 'boolean', example: true }, message: { type: 'string' } } } } } },
+          '200': {
+            description: 'Transaction soft-deleted',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    success: { type: 'boolean', example: true },
+                    message: { type: 'string' },
+                  },
+                },
+              },
+            },
+          },
           '401': { $ref: '#/components/responses/Unauthorized' },
           '403': { $ref: '#/components/responses/Forbidden' },
           '404': { $ref: '#/components/responses/NotFound' },
@@ -695,7 +935,8 @@ export const swaggerSpec = {
       get: {
         tags: ['Dashboard'],
         summary: 'Financial summary (all roles)',
-        description: 'Returns aggregated totals, category breakdowns, recent transactions, and monthly trends. All parallel MongoDB aggregations.',
+        description:
+          'Returns aggregated totals, category breakdowns, recent transactions, and monthly trends. All parallel MongoDB aggregations.',
         responses: {
           '200': {
             description: 'Dashboard summary',
@@ -716,4 +957,4 @@ export const swaggerSpec = {
       },
     },
   },
-}
+};

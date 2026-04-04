@@ -163,10 +163,10 @@ The spec documents all 16 endpoints with request schemas, response shapes, role 
 
 ## Deployment
 
-This project is deployed on Railway at: https://finopsbackend-production.up.railway.app
+This project is deployed on Render at: https://finops-backend-rjlc.onrender.com
 
-- Live Swagger UI: https://finopsbackend-production.up.railway.app/api/docs
-- OpenAPI JSON: https://finopsbackend-production.up.railway.app/api/docs.json
+- Live Swagger UI: https://finops-backend-rjlc.onrender.com/api/docs
+- OpenAPI JSON: https://finops-backend-rjlc.onrender.com/api/docs.json
 
 ---
 
